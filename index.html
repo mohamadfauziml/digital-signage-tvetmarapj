@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
-  <title>TVETMARA Digital Signage</title>
+  <title>TVETMARA Petaling Jaya Digital Signage</title>
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -17,40 +17,101 @@
 
   <main class="signage">
 
-    <!-- HEADER -->
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
     <header class="header">
 
-      <div class="brand">
+      <!-- LEFT: CAMPUS BUILDING -->
+      <div class="building-zone">
+
         <img
-          src="assets/TVETMARAPJ.png"
-          alt="Logo TVETMARA Petaling Jaya"
-          class="logo"
+          src="assets/TVETMARAPJBuilding.png?v=2"
+          alt="TVETMARA Petaling Jaya"
+          class="building-image"
           onerror="this.style.display='none'"
         >
+
       </div>
 
+
+      <!-- CENTER: OFFICIAL LOGOS -->
+      <div class="logo-group">
+
+        <img
+          src="assets/MARA.png?v=2"
+          alt="Logo MARA"
+          class="header-logo mara-logo"
+          onerror="this.style.display='none'"
+        >
+
+        <div class="logo-divider"></div>
+
+        <img
+          src="assets/JATANEGARA.png?v=2"
+          alt="Jata Negara"
+          class="header-logo jata-logo"
+          onerror="this.style.display='none'"
+        >
+
+        <div class="logo-divider"></div>
+
+        <img
+          src="assets/TVETMARAPJ.png?v=2"
+          alt="Logo TVETMARA Petaling Jaya"
+          class="header-logo tvet-logo"
+          onerror="this.style.display='none'"
+        >
+
+      </div>
+
+
+      <!-- RIGHT: CLOCK -->
       <div class="clock-box">
-        <div id="clock">--:--:--</div>
-        <div id="date">Memuatkan...</div>
+
+        <div id="clock">
+          --:--:--
+        </div>
+
+        <div id="date">
+          Memuatkan...
+        </div>
+
       </div>
 
     </header>
 
 
-    <!-- POSTER AREA -->
+    <!-- =====================================================
+         POSTER AREA
+         ===================================================== -->
+
     <section class="poster-frame">
 
-      <div id="posterBackground" class="poster-background"></div>
+      <!-- Blurred poster background -->
+      <div
+        id="posterBackground"
+        class="poster-background">
+      </div>
 
+
+      <!-- Soft overlay -->
       <div class="poster-overlay"></div>
 
+
+      <!-- Main poster -->
       <img
         id="poster"
         class="poster"
         alt="Poster Aktiviti"
       >
 
-      <div id="fallback" class="fallback">
+
+      <!-- Fallback -->
+      <div
+        id="fallback"
+        class="fallback">
 
         <div class="fallback-title">
           Tiada pengumuman aktif buat masa ini
@@ -62,6 +123,8 @@
 
       </div>
 
+
+      <!-- Poster Counter -->
       <div
         id="posterCounter"
         class="poster-counter">
@@ -70,7 +133,10 @@
     </section>
 
 
-    <!-- FOOTER -->
+    <!-- =====================================================
+         FOOTER / TICKER
+         ===================================================== -->
+
     <footer class="footer">
 
       <div class="footer-label">
@@ -78,14 +144,21 @@
       </div>
 
       <div class="ticker-wrap">
-        <div id="ticker" class="ticker">
+
+        <div
+          id="ticker"
+          class="ticker">
+
           Memuatkan maklumat terkini...
+
         </div>
+
       </div>
 
     </footer>
 
   </main>
+
 
   <script src="script.js"></script>
 
