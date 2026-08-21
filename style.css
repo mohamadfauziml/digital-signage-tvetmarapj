@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light;
+}
+
 html,
 body {
   margin: 0;
@@ -59,7 +63,9 @@ body {
     0.8vh
     1.8vw;
 
-  background: #ffffff;
+  background: #ffffff !important;
+
+  color: #1f2933 !important;
 
   border-bottom:
     3px solid #c73a3a;
@@ -117,9 +123,9 @@ body {
    ========================================================= */
 
 .mara-logo {
-  height: 10vh;
+  height: 8vh;
 
-  max-width: 16vw;
+  max-width: 13vw;
 }
 
 
@@ -128,9 +134,9 @@ body {
    ========================================================= */
 
 .jata-logo {
-  height: 10vh;
+  height: 7.4vh;
 
-  max-width: 11vw;
+  max-width: 8vw;
 }
 
 
@@ -162,7 +168,6 @@ body {
 
 /* =========================================================
    CLOCK + DATE
-   ATAS BAWAH TAPI SEBARIS
    ========================================================= */
 
 .clock-box {
@@ -173,6 +178,7 @@ body {
   flex-direction: column;
 
   align-items: center;
+
   text-align: center;
 
   white-space: nowrap;
@@ -381,8 +387,7 @@ body {
 
 
 /* =========================================================
-   POSTER COUNTER
-   HIDDEN
+   POSTER COUNTER HIDDEN
    ========================================================= */
 
 .poster-counter {
@@ -487,5 +492,168 @@ body {
 
   to {
     transform: translateX(-100%);
+  }
+}
+
+
+/* =========================================================
+   MOBILE / PORTRAIT PREVIEW
+   TV LAYOUT TIDAK TERJEJAS
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  html,
+  body {
+    background: #e9edf2 !important;
+  }
+
+
+  .signage {
+    grid-template-rows:
+      18vh
+      1fr
+      8vh;
+  }
+
+
+  .header {
+    grid-template-columns:
+      1fr
+      auto;
+
+    grid-template-areas:
+      "logos clock";
+
+    gap: 2vw;
+
+    padding:
+      1.2vh
+      2.5vw;
+
+    background:
+      #ffffff !important;
+  }
+
+
+  .header-spacer {
+    display: none;
+  }
+
+
+  .logo-group {
+    grid-area: logos;
+
+    justify-content: flex-start;
+
+    gap: 1.4vw;
+
+    padding: 0;
+  }
+
+
+  .mara-logo {
+    height: 7vh;
+    max-width: 14vw;
+  }
+
+
+  .jata-logo {
+    height: 6.5vh;
+    max-width: 13vw;
+  }
+
+
+  .tvet-logo {
+    height: 5.4vh;
+    max-width: 25vw;
+  }
+
+
+  .logo-divider {
+    height: 4.5vh;
+  }
+
+
+  .clock-box {
+    grid-area: clock;
+
+    justify-self: end;
+
+    align-items: center;
+
+    text-align: center;
+  }
+
+
+  #clock {
+    font-size:
+      clamp(
+        24px,
+        8vw,
+        40px
+      );
+  }
+
+
+  #date {
+    margin-top: 0.4vh;
+
+    font-size:
+      clamp(
+        10px,
+        3vw,
+        15px
+      );
+  }
+
+
+  .poster-frame {
+    margin:
+      1.5vh
+      2vw;
+
+    border-radius: 12px;
+  }
+
+
+  .poster-background {
+    filter:
+      blur(24px)
+      brightness(0.70);
+  }
+
+
+  .footer {
+    min-height: 8vh;
+  }
+
+
+  .footer-label {
+    min-width: 20vw;
+
+    padding:
+      0
+      2vw;
+
+    font-size:
+      clamp(
+        12px,
+        3vw,
+        16px
+      );
+  }
+
+
+  .ticker {
+    font-size:
+      clamp(
+        13px,
+        3.4vw,
+        17px
+      );
+
+    animation-duration:
+      24s;
   }
 }
