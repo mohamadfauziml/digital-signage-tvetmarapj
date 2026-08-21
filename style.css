@@ -1,189 +1,534 @@
+/* =========================================================
+   TVETMARA DIGITAL SIGNAGE V1.1
+   ========================================================= */
+
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
+  padding: 0;
+
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #071525;
-}
 
-body {
+  overflow: hidden;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #070c23;
+
   color: #ffffff;
 }
 
+
+/* =========================================================
+   MAIN SCREEN
+   ========================================================= */
+
 .signage {
+
   width: 100vw;
   height: 100vh;
+
   display: grid;
-  grid-template-rows: 12vh 1fr 7vh;
+
+  grid-template-rows:
+    13vh
+    1fr
+    7vh;
+
   background:
-    radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 30%),
-    linear-gradient(135deg, #071525, #0b2340);
+
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(35, 95, 180, 0.15),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 90% 5%,
+      rgba(235, 35, 50, 0.08),
+      transparent 25%
+    ),
+
+    linear-gradient(
+      135deg,
+      #071020,
+      #0c1835 55%,
+      #171348
+    );
 }
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .header {
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
-  padding: 1.2vh 2vw;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.16);
+
+  padding:
+    1vh
+    2vw;
+
+  background:
+    rgba(4, 10, 28, 0.90);
+
+  border-bottom:
+    2px solid
+    rgba(80, 120, 205, 0.30);
 }
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
 
 .brand {
+
+  height: 100%;
+
   display: flex;
+
   align-items: center;
-  min-width: 0;
 }
+
 
 .logo {
-  width: 8vh;
-  height: 8vh;
+
+  width: auto;
+
+  height: 9.5vh;
+
+  max-width: 38vw;
+
   object-fit: contain;
-  margin-right: 1.2vw;
+
+  display: block;
+
+  filter:
+    drop-shadow(
+      0 4px 10px
+      rgba(0,0,0,0.35)
+    );
 }
 
-.brand-text {
-  min-width: 0;
-}
 
-.college-name {
-  font-size: clamp(20px, 2.2vw, 44px);
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-.tagline {
-  margin-top: 0.35vh;
-  font-size: clamp(12px, 1vw, 22px);
-  opacity: 0.72;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+/* =========================================================
+   CLOCK
+   ========================================================= */
 
 .clock-box {
+
   text-align: right;
+
   white-space: nowrap;
 }
 
+
 #clock {
-  font-size: clamp(28px, 3.1vw, 58px);
+
+  font-size:
+    clamp(
+      30px,
+      3.5vw,
+      68px
+    );
+
   font-weight: 800;
+
   line-height: 1;
+
+  letter-spacing:
+    0.03em;
 }
+
 
 #date {
-  margin-top: 0.5vh;
-  font-size: clamp(12px, 1vw, 20px);
-  opacity: 0.78;
+
+  margin-top:
+    0.6vh;
+
+  font-size:
+    clamp(
+      13px,
+      1.05vw,
+      22px
+    );
+
+  opacity: 0.80;
 }
+
+
+/* =========================================================
+   POSTER FRAME
+   ========================================================= */
 
 .poster-frame {
+
   position: relative;
-  margin: 2vh 2vw;
-  border: 0.5vh solid rgba(255,255,255,0.92);
-  border-radius: 1.2vh;
+
+  margin:
+    2vh
+    1.5vw;
+
   overflow: hidden;
-  background: #eef2f6;
-  box-shadow: 0 1.5vh 4vh rgba(0,0,0,0.32);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  border-radius:
+    1.4vh;
+
+  border:
+    2px solid
+    rgba(255,255,255,0.20);
+
+  background:
+    #080e24;
+
+  box-shadow:
+
+    0 1.5vh 4vh
+    rgba(0,0,0,0.45),
+
+    inset
+    0 0 0 1px
+    rgba(255,255,255,0.04);
+
 }
 
-#poster {
+
+/* =========================================================
+   BLURRED POSTER BACKGROUND
+   ========================================================= */
+
+.poster-background {
+
+  position: absolute;
+
+  inset: -30px;
+
+  background-position: center;
+
+  background-repeat: no-repeat;
+
+  background-size: cover;
+
+  filter:
+    blur(28px);
+
+  transform:
+    scale(1.08);
+
+  opacity: 0;
+
+  transition:
+    opacity
+    0.8s ease;
+}
+
+
+/* =========================================================
+   POSTER DARK OVERLAY
+   ========================================================= */
+
+.poster-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      rgba(4,10,25,0.50),
+      rgba(4,10,25,0.10),
+      rgba(4,10,25,0.50)
+    );
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   MAIN POSTER
+   ========================================================= */
+
+.poster {
+
+  position: relative;
+
+  z-index: 2;
+
   width: 100%;
   height: 100%;
+
   object-fit: contain;
+
   display: none;
-  background: #eef2f6;
-  transition: opacity 0.45s ease;
+
+  margin: auto;
+
+  opacity: 1;
+
+  transition:
+    opacity
+    0.45s ease;
+
+  filter:
+    drop-shadow(
+      0 8px 22px
+      rgba(0,0,0,0.45)
+    );
 }
 
-#poster.fade-out {
+
+.poster.fade-out {
   opacity: 0;
 }
 
-#poster.fade-in {
+
+.poster.fade-in {
   opacity: 1;
 }
 
+
+/* =========================================================
+   FALLBACK
+   ========================================================= */
+
 .fallback {
+
+  position: relative;
+
+  z-index: 3;
+
   width: 100%;
   height: 100%;
+
   display: flex;
+
   flex-direction: column;
-  align-items: center;
+
   justify-content: center;
-  color: #17324f;
+
+  align-items: center;
+
   text-align: center;
-  padding: 4vw;
+
+  padding: 5vw;
+
+  background:
+
+    radial-gradient(
+      circle at center,
+      rgba(38, 76, 150, 0.22),
+      transparent 50%
+    );
+
 }
 
+
 .fallback-title {
-  font-size: clamp(28px, 3vw, 62px);
+
+  font-size:
+    clamp(
+      28px,
+      3vw,
+      60px
+    );
+
   font-weight: 800;
 }
 
+
 .fallback-subtitle {
-  margin-top: 1vh;
-  font-size: clamp(16px, 1.4vw, 28px);
+
+  margin-top:
+    1vh;
+
+  font-size:
+    clamp(
+      16px,
+      1.3vw,
+      28px
+    );
+
   opacity: 0.65;
 }
 
+
+/* =========================================================
+   POSTER COUNTER
+   ========================================================= */
+
 .poster-counter {
+
   position: absolute;
-  right: 1vw;
-  bottom: 1vh;
-  background: rgba(0,0,0,0.55);
-  color: white;
-  border-radius: 999px;
-  padding: 0.5vh 0.8vw;
-  font-size: clamp(10px, 0.8vw, 16px);
+
+  z-index: 5;
+
+  right:
+    1.2vw;
+
+  bottom:
+    1.3vh;
+
   display: none;
+
+  padding:
+
+    0.5vh
+    0.9vw;
+
+  border-radius:
+    999px;
+
+  font-size:
+    clamp(
+      11px,
+      0.8vw,
+      16px
+    );
+
+  background:
+    rgba(4, 10, 28, 0.72);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.18);
+
+  backdrop-filter:
+    blur(8px);
 }
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .footer {
+
   display: flex;
+
   align-items: center;
-  background: #06101c;
-  border-top: 1px solid rgba(255,255,255,0.12);
+
   overflow: hidden;
+
+  background:
+    #050a18;
+
+  border-top:
+    2px solid
+    rgba(45, 87, 175, 0.25);
 }
+
+
+/* =========================================================
+   INFO LABEL
+   ========================================================= */
 
 .footer-label {
-  height: 100%;
-  min-width: 10vw;
-  padding: 0 1.3vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(14px, 1vw, 22px);
-  font-weight: 800;
-  background: #ffffff;
-  color: #0b2340;
+
   z-index: 2;
+
+  height: 100%;
+
+  min-width:
+    10vw;
+
+  padding:
+    0
+    1.3vw;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size:
+    clamp(
+      14px,
+      1vw,
+      22px
+    );
+
+  font-weight: 800;
+
+  color:
+    #ffffff;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #172c72,
+      #243f94
+    );
+
+  border-right:
+    4px solid
+    #e2222f;
 }
 
+
+/* =========================================================
+   TICKER
+   ========================================================= */
+
 .ticker-wrap {
+
   flex: 1;
+
   overflow: hidden;
+
   white-space: nowrap;
 }
 
+
 .ticker {
+
   display: inline-block;
-  padding-left: 100%;
-  font-size: clamp(15px, 1.1vw, 24px);
-  animation: ticker 24s linear infinite;
+
+  padding-left:
+    100%;
+
+  font-size:
+    clamp(
+      15px,
+      1.15vw,
+      25px
+    );
+
+  animation:
+    ticker
+    28s
+    linear
+    infinite;
 }
 
+
 @keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+
+  from {
+    transform:
+      translateX(0);
+  }
+
+  to {
+    transform:
+      translateX(-100%);
+  }
+
 }
