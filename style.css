@@ -1,22 +1,14 @@
 /* =========================================================
    TVETMARA PETALING JAYA
    DIGITAL SIGNAGE
-   PROFESSIONAL LAYOUT
-   ========================================================= */
-
-
-/* =========================================================
-   GLOBAL
    ========================================================= */
 
 * {
   box-sizing: border-box;
 }
 
-
 html,
 body {
-
   margin: 0;
   padding: 0;
 
@@ -25,10 +17,7 @@ body {
 
   overflow: hidden;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 
   background: #e9edf2;
 
@@ -41,7 +30,6 @@ body {
    ========================================================= */
 
 .signage {
-
   width: 100vw;
   height: 100vh;
 
@@ -52,8 +40,7 @@ body {
     1fr
     7vh;
 
-  background:
-    #e9edf2;
+  background: #e9edf2;
 }
 
 
@@ -62,7 +49,6 @@ body {
    ========================================================= */
 
 .header {
-
   display: grid;
 
   grid-template-columns:
@@ -72,24 +58,19 @@ body {
 
   align-items: center;
 
-  gap: 2vw;
+  gap: 1.5vw;
 
   padding:
-    1vh
-    2vw;
+    0.8vh
+    1.8vw;
 
-  background:
-    #ffffff;
+  background: #ffffff;
 
   border-bottom:
-    3px solid
-    #c73a3a;
+    3px solid #c73a3a;
 
   box-shadow:
-    0
-    2px
-    8px
-    rgba(0, 0, 0, 0.08);
+    0 2px 8px rgba(0, 0, 0, 0.08);
 
   position: relative;
 
@@ -98,11 +79,10 @@ body {
 
 
 /* =========================================================
-   LEFT ZONE - CAMPUS BUILDING
+   LEFT - BUILDING
    ========================================================= */
 
 .building-zone {
-
   height: 100%;
 
   display: flex;
@@ -112,34 +92,39 @@ body {
   justify-content: flex-start;
 
   overflow: hidden;
+
+  padding:
+    0.4vh
+    0.5vw;
+
+  border-radius: 8px;
+
+  background:
+    #f7f8fa;
 }
 
 
 .building-image {
-
   display: block;
 
   width: auto;
 
-  height: 8.4vh;
+  height: 9vh;
 
-  max-width: 26vw;
+  max-width: 27vw;
 
   object-fit: contain;
 
   object-position:
     left center;
-
-  opacity: 0.95;
 }
 
 
 /* =========================================================
-   CENTER LOGO GROUP
+   CENTER LOGOS
    ========================================================= */
 
 .logo-group {
-
   height: 100%;
 
   display: flex;
@@ -148,22 +133,20 @@ body {
 
   justify-content: center;
 
-  gap: 1.35vw;
+  gap: 1.4vw;
 
   padding:
-    0
-    1vw;
+    0 0.8vw;
 
   white-space: nowrap;
 }
 
 
 /* =========================================================
-   LOGO GENERAL
+   COMMON LOGO
    ========================================================= */
 
 .header-logo {
-
   display: block;
 
   width: auto;
@@ -175,14 +158,13 @@ body {
 
 
 /* =========================================================
-   MARA LOGO
+   MARA
    ========================================================= */
 
 .mara-logo {
+  height: 7vh;
 
-  height: 5.5vh;
-
-  max-width: 9vw;
+  max-width: 12vw;
 }
 
 
@@ -191,37 +173,33 @@ body {
    ========================================================= */
 
 .jata-logo {
+  height: 7.4vh;
 
-  height: 7.2vh;
-
-  max-width: 7vw;
+  max-width: 8vw;
 }
 
 
 /* =========================================================
-   TVETMARA PJ LOGO
+   TVETMARA PJ
    ========================================================= */
 
 .tvet-logo {
+  height: 6.5vh;
 
-  height: 6.4vh;
-
-  max-width: 15vw;
+  max-width: 16vw;
 }
 
 
 /* =========================================================
-   LOGO DIVIDER
+   DIVIDERS
    ========================================================= */
 
 .logo-divider {
-
   width: 1px;
 
   height: 5vh;
 
-  background:
-    #d7dce2;
+  background: #d7dce2;
 
   flex-shrink: 0;
 }
@@ -232,20 +210,17 @@ body {
    ========================================================= */
 
 .clock-box {
-
   justify-self: end;
 
   text-align: right;
 
   white-space: nowrap;
 
-  color:
-    #1f2933;
+  color: #1f2933;
 }
 
 
 #clock {
-
   font-size:
     clamp(
       27px,
@@ -257,15 +232,12 @@ body {
 
   line-height: 1;
 
-  letter-spacing:
-    0.02em;
+  letter-spacing: 0.02em;
 }
 
 
 #date {
-
-  margin-top:
-    0.5vh;
+  margin-top: 0.5vh;
 
   font-size:
     clamp(
@@ -274,8 +246,7 @@ body {
       21px
     );
 
-  color:
-    #5f6b76;
+  color: #5f6b76;
 
   font-weight: 500;
 }
@@ -286,7 +257,6 @@ body {
    ========================================================= */
 
 .poster-frame {
-
   position: relative;
 
   margin:
@@ -295,57 +265,43 @@ body {
 
   overflow: hidden;
 
-  border-radius:
-    14px;
+  border-radius: 14px;
 
   border:
-    1px solid
-    #d7dce2;
+    1px solid #d7dce2;
 
-  background:
-    #d7dce2;
+  background: #d7dce2;
 
   box-shadow:
-    0
-    8px
-    22px
-    rgba(0, 0, 0, 0.10);
+    0 8px 22px rgba(0, 0, 0, 0.10);
 }
 
 
 /* =========================================================
-   BLURRED POSTER BACKGROUND
+   BLURRED BACKGROUND
    ========================================================= */
 
 .poster-background {
-
   position: absolute;
 
-  inset:
-    -35px;
+  inset: -35px;
 
-  background-position:
-    center;
+  background-position: center;
 
-  background-repeat:
-    no-repeat;
+  background-repeat: no-repeat;
 
-  background-size:
-    cover;
+  background-size: cover;
 
   filter:
     blur(30px)
     brightness(0.72);
 
-  transform:
-    scale(1.10);
+  transform: scale(1.10);
 
-  opacity:
-    0;
+  opacity: 0;
 
   transition:
-    opacity
-    0.8s ease;
+    opacity 0.8s ease;
 }
 
 
@@ -354,7 +310,6 @@ body {
    ========================================================= */
 
 .poster-overlay {
-
   position: absolute;
 
   inset: 0;
@@ -371,7 +326,6 @@ body {
    ========================================================= */
 
 .poster {
-
   position: relative;
 
   z-index: 2;
@@ -379,46 +333,33 @@ body {
   width: 100%;
   height: 100%;
 
-  object-fit:
-    contain;
+  object-fit: contain;
 
-  display:
-    none;
+  display: none;
 
-  margin:
-    auto;
+  margin: auto;
 
-  opacity:
-    1;
+  opacity: 1;
 
-  background:
-    transparent;
+  background: transparent;
 
   transition:
-    opacity
-    0.45s ease;
+    opacity 0.45s ease;
 
   filter:
     drop-shadow(
-      0
-      6px
-      16px
-      rgba(0, 0, 0, 0.16)
+      0 6px 16px rgba(0, 0, 0, 0.16)
     );
 }
 
 
 .poster.fade-out {
-
-  opacity:
-    0;
+  opacity: 0;
 }
 
 
 .poster.fade-in {
-
-  opacity:
-    1;
+  opacity: 1;
 }
 
 
@@ -427,7 +368,6 @@ body {
    ========================================================= */
 
 .fallback {
-
   position: relative;
 
   z-index: 3;
@@ -445,19 +385,15 @@ body {
 
   text-align: center;
 
-  padding:
-    5vw;
+  padding: 5vw;
 
-  background:
-    #d7dce2;
+  background: #d7dce2;
 
-  color:
-    #374151;
+  color: #374151;
 }
 
 
 .fallback-title {
-
   font-size:
     clamp(
       28px,
@@ -465,15 +401,12 @@ body {
       60px
     );
 
-  font-weight:
-    800;
+  font-weight: 800;
 }
 
 
 .fallback-subtitle {
-
-  margin-top:
-    1vh;
+  margin-top: 1vh;
 
   font-size:
     clamp(
@@ -482,8 +415,7 @@ body {
       28px
     );
 
-  color:
-    #6b7280;
+  color: #6b7280;
 }
 
 
@@ -492,26 +424,21 @@ body {
    ========================================================= */
 
 .poster-counter {
-
   position: absolute;
 
   z-index: 5;
 
-  right:
-    1.2vw;
+  right: 1.2vw;
 
-  bottom:
-    1.3vh;
+  bottom: 1.3vh;
 
-  display:
-    none;
+  display: none;
 
   padding:
     0.5vh
     0.9vw;
 
-  border-radius:
-    999px;
+  border-radius: 999px;
 
   font-size:
     clamp(
@@ -523,12 +450,10 @@ body {
   background:
     rgba(47, 58, 70, 0.82);
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.20);
+    1px solid rgba(255, 255, 255, 0.20);
 }
 
 
@@ -537,19 +462,16 @@ body {
    ========================================================= */
 
 .footer {
-
   display: flex;
 
   align-items: center;
 
   overflow: hidden;
 
-  background:
-    #2f3a46;
+  background: #2f3a46;
 
   border-top:
-    1px solid
-    rgba(255, 255, 255, 0.08);
+    1px solid rgba(255, 255, 255, 0.08);
 }
 
 
@@ -558,17 +480,14 @@ body {
    ========================================================= */
 
 .footer-label {
-
   z-index: 2;
 
   height: 100%;
 
-  min-width:
-    9vw;
+  min-width: 9vw;
 
   padding:
-    0
-    1.3vw;
+    0 1.3vw;
 
   display: flex;
 
@@ -583,33 +502,14 @@ body {
       22px
     );
 
-  font-weight:
-    800;
+  font-weight: 800;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
-  background:
-    #374151;
+  background: #374151;
 
   border-right:
-    4px solid
-    #c73a3a;
-}
-
-
-/* =========================================================
-   TICKER WRAPPER
-   ========================================================= */
-
-.ticker-wrap {
-
-  flex: 1;
-
-  overflow: hidden;
-
-  white-space:
-    nowrap;
+    4px solid #c73a3a;
 }
 
 
@@ -617,13 +517,19 @@ body {
    TICKER
    ========================================================= */
 
+.ticker-wrap {
+  flex: 1;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+}
+
+
 .ticker {
+  display: inline-block;
 
-  display:
-    inline-block;
-
-  padding-left:
-    100%;
+  padding-left: 100%;
 
   font-size:
     clamp(
@@ -632,8 +538,7 @@ body {
       24px
     );
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   animation:
     ticker
@@ -643,21 +548,13 @@ body {
 }
 
 
-/* =========================================================
-   TICKER ANIMATION
-   ========================================================= */
-
 @keyframes ticker {
 
   from {
-
-    transform:
-      translateX(0);
+    transform: translateX(0);
   }
 
   to {
-
-    transform:
-      translateX(-100%);
+    transform: translateX(-100%);
   }
 }
