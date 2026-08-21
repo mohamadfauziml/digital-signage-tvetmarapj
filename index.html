@@ -3,49 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
+
   <title>TVETMARA Digital Signage</title>
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+
   <main class="signage">
+
+    <!-- HEADER -->
     <header class="header">
+
       <div class="brand">
-        <img src="assets/TVETMAPJLogo.png" alt="Logo Kolej" class="logo" onerror="this.style.display='none'">
-        <div class="brand-text">
-          <div class="college-name">TVETMARA PETALING JAYA</div>
-          <div class="tagline">Digital Information Display</div>
-        </div>
+        <img
+          src="assets/TVETMAPJLogo.png?v=2"
+          alt="Logo TVETMARA"
+          class="logo"
+          onerror="this.style.display='none'"
+        >
       </div>
 
       <div class="clock-box">
-        <div id="clock">--:--</div>
+        <div id="clock">--:--:--</div>
         <div id="date">Loading...</div>
       </div>
+
     </header>
 
+
+    <!-- POSTER AREA -->
     <section class="poster-frame">
-      <img id="poster" alt="Poster Aktiviti" />
+
+      <!-- Blurred background -->
+      <div id="posterBackground" class="poster-background"></div>
+
+      <!-- Dark overlay supaya poster utama lebih menyerlah -->
+      <div class="poster-overlay"></div>
+
+      <!-- Poster sebenar -->
+      <img
+        id="poster"
+        class="poster"
+        alt="Poster Aktiviti"
+      >
+
+      <!-- Fallback -->
       <div id="fallback" class="fallback">
-        <div class="fallback-title">Tiada pengumuman aktif buat masa ini</div>
-        <div class="fallback-subtitle">Sila semak semula kemudian.</div>
+
+        <div class="fallback-title">
+          Tiada pengumuman aktif buat masa ini
+        </div>
+
+        <div class="fallback-subtitle">
+          Sila semak semula kemudian.
+        </div>
+
       </div>
 
-      <div class="poster-counter" id="posterCounter"></div>
+      <!-- Poster Counter -->
+      <div
+        id="posterCounter"
+        class="poster-counter">
+      </div>
+
     </section>
 
+
+    <!-- FOOTER -->
     <footer class="footer">
-      <div class="footer-label">INFO KOLEJ</div>
-      <div class="ticker-wrap">
-        <div class="ticker">
-          Selamat datang ke TVETMARA Petaling Jaya • Maklumat aktiviti dan pengumuman terkini dipaparkan di sini •
-        </div>
+
+      <div class="footer-label">
+        INFO KOLEJ
       </div>
+
+      <div class="ticker-wrap">
+
+        <div class="ticker">
+          Selamat datang ke TVETMARA Petaling Jaya
+          &nbsp;&nbsp; • &nbsp;&nbsp;
+          Informasi dan aktiviti terkini kolej
+          &nbsp;&nbsp; • &nbsp;&nbsp;
+          Bersama Melahirkan Graduan TVET Berkualiti
+          &nbsp;&nbsp; • &nbsp;&nbsp;
+        </div>
+
+      </div>
+
     </footer>
+
   </main>
 
   <script src="script.js"></script>
+
 </body>
 </html>
