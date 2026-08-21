@@ -1,133 +1,365 @@
 /* =========================================================
-   TVETMARA DIGITAL SIGNAGE V1.5
+   TVETMARA PETALING JAYA
+   DIGITAL SIGNAGE
    ========================================================= */
 
-const POSTER_DURATION = 10000;
+* {
+  box-sizing: border-box;
+}
 
-const POSTER_LIST_URL =
-  `posters.json?v=${Date.now()}`;
+html,
+body {
+  margin: 0;
+  padding: 0;
 
-const TICKER_LIST_URL =
-  `ticker.json?v=${Date.now()}`;
+  width: 100%;
+  height: 100%;
 
+  overflow: hidden;
 
-let posters = [];
-let currentIndex = 0;
-let timer = null;
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: #e9edf2;
+
+  color: #1f2933;
+}
 
 
 /* =========================================================
-   ELEMENTS
+   MAIN SCREEN
    ========================================================= */
 
-const posterEl =
-  document.getElementById("poster");
+.signage {
+  width: 100vw;
+  height: 100vh;
 
-const posterBackgroundEl =
-  document.getElementById("posterBackground");
+  display: grid;
 
-const fallbackEl =
-  document.getElementById("fallback");
+  grid-template-rows:
+    13vh
+    1fr
+    7vh;
 
-const counterEl =
-  document.getElementById("posterCounter");
+  background: #e9edf2;
+}
 
-const tickerEl =
-  document.getElementById("ticker");
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    auto
+    1fr;
+
+  align-items: center;
+
+  gap: 1.5vw;
+
+  padding:
+    0.8vh
+    1.8vw;
+
+  background: #ffffff;
+
+  border-bottom:
+    3px solid #c73a3a;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08);
+
+  position: relative;
+
+  z-index: 10;
+}
+
+
+/* =========================================================
+   LEFT - BUILDING
+   ========================================================= */
+
+.building-zone {
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  overflow: hidden;
+
+  padding:
+    0.4vh
+    0.5vw;
+
+  border-radius: 8px;
+
+  background:
+    #f7f8fa;
+}
+
+
+.building-image {
+  display: block;
+
+  width: auto;
+
+  height: 9vh;
+
+  max-width: 27vw;
+
+  object-fit: contain;
+
+  object-position:
+    left center;
+}
+
+
+/* =========================================================
+   CENTER LOGOS
+   ========================================================= */
+
+.logo-group {
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 1.4vw;
+
+  padding:
+    0 0.8vw;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   COMMON LOGO
+   ========================================================= */
+
+.header-logo {
+  display: block;
+
+  width: auto;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   MARA
+   ========================================================= */
+
+.mara-logo {
+  height: 7vh;
+
+  max-width: 12vw;
+}
+
+
+/* =========================================================
+   JATA NEGARA
+   ========================================================= */
+
+.jata-logo {
+  height: 7.4vh;
+
+  max-width: 8vw;
+}
+
+
+/* =========================================================
+   TVETMARA PJ
+   ========================================================= */
+
+.tvet-logo {
+  height: 6.5vh;
+
+  max-width: 16vw;
+}
+
+
+/* =========================================================
+   DIVIDERS
+   ========================================================= */
+
+.logo-divider {
+  width: 1px;
+
+  height: 5vh;
+
+  background: #d7dce2;
+
+  flex-shrink: 0;
+}
 
 
 /* =========================================================
    CLOCK
    ========================================================= */
 
-function updateClock() {
+.clock-box {
+  justify-self: end;
 
-  const now = new Date();
+  text-align: right;
 
-  document.getElementById("clock").textContent =
-    now.toLocaleTimeString(
-      "en-MY",
-      {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false
-      }
-    );
+  white-space: nowrap;
 
-  document.getElementById("date").textContent =
-    now.toLocaleDateString(
-      "ms-MY",
-      {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }
-    );
+  color: #1f2933;
 }
 
-setInterval(updateClock, 1000);
-updateClock();
+
+#clock {
+  font-size:
+    clamp(
+      27px,
+      2.8vw,
+      54px
+    );
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: 0.02em;
+}
+
+
+#date {
+  margin-top: 0.5vh;
+
+  font-size:
+    clamp(
+      12px,
+      1vw,
+      21px
+    );
+
+  color: #5f6b76;
+
+  font-weight: 500;
+}
 
 
 /* =========================================================
-   LOAD POSTER LIST
+   POSTER AREA
    ========================================================= */
 
-async function loadPosterList() {
+.poster-frame {
+  position: relative;
 
-  try {
+  margin:
+    2vh
+    1.5vw;
 
-    const response =
-      await fetch(
-        POSTER_LIST_URL,
-        {
-          cache: "no-store"
-        }
-      );
+  overflow: hidden;
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+  border-radius: 14px;
 
-    const data =
-      await response.json();
+  border:
+    1px solid #d7dce2;
 
-    if (!Array.isArray(data)) {
-      throw new Error(
-        "posters.json mesti dalam bentuk array."
-      );
-    }
+  background: #d7dce2;
 
-    posters =
-      data.filter(
-        item =>
-          typeof item === "string"
-          &&
-          item.trim() !== ""
-      );
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.10);
+}
 
-    if (posters.length === 0) {
-      showFallback();
-      return;
-    }
 
-    currentIndex = 0;
+/* =========================================================
+   BLURRED BACKGROUND
+   ========================================================= */
 
-    showNextValidPoster();
+.poster-background {
+  position: absolute;
 
-  }
+  inset: -35px;
 
-  catch (error) {
+  background-position: center;
 
-    console.error(
-      "Gagal membaca posters.json:",
-      error
+  background-repeat: no-repeat;
+
+  background-size: cover;
+
+  filter:
+    blur(30px)
+    brightness(0.72);
+
+  transform: scale(1.10);
+
+  opacity: 0;
+
+  transition:
+    opacity 0.8s ease;
+}
+
+
+/* =========================================================
+   POSTER OVERLAY
+   ========================================================= */
+
+.poster-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    rgba(55, 65, 81, 0.08);
+}
+
+
+/* =========================================================
+   MAIN POSTER
+   ========================================================= */
+
+.poster {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  display: none;
+
+  margin: auto;
+
+  opacity: 1;
+
+  background: transparent;
+
+  transition:
+    opacity 0.45s ease;
+
+  filter:
+    drop-shadow(
+      0 6px 16px rgba(0, 0, 0, 0.16)
     );
+}
 
-    showFallback();
-  }
+
+.poster.fade-out {
+  opacity: 0;
+}
+
+
+.poster.fade-in {
+  opacity: 1;
 }
 
 
@@ -135,218 +367,194 @@ async function loadPosterList() {
    FALLBACK
    ========================================================= */
 
-function showFallback() {
+.fallback {
+  position: relative;
 
-  clearTimeout(timer);
+  z-index: 3;
 
-  posterEl.style.display =
-    "none";
+  width: 100%;
+  height: 100%;
 
-  posterBackgroundEl.style.opacity =
-    "0";
+  display: flex;
 
-  counterEl.style.display =
-    "none";
+  flex-direction: column;
 
-  fallbackEl.style.display =
-    "flex";
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+  padding: 5vw;
+
+  background: #d7dce2;
+
+  color: #374151;
+}
+
+
+.fallback-title {
+  font-size:
+    clamp(
+      28px,
+      3vw,
+      60px
+    );
+
+  font-weight: 800;
+}
+
+
+.fallback-subtitle {
+  margin-top: 1vh;
+
+  font-size:
+    clamp(
+      16px,
+      1.3vw,
+      28px
+    );
+
+  color: #6b7280;
 }
 
 
 /* =========================================================
-   SHOW NEXT POSTER
+   POSTER COUNTER
    ========================================================= */
 
-function showNextValidPoster(
-  attempts = 0
-) {
+.poster-counter {
+  position: absolute;
 
-  if (
-    posters.length === 0
-    ||
-    attempts >= posters.length
-  ) {
+  z-index: 5;
 
-    showFallback();
-    return;
-  }
+  right: 1.2vw;
 
-  const indexToShow =
-    currentIndex;
+  bottom: 1.3vh;
 
-  const src =
-    posters[indexToShow];
+  display: none;
 
-  const testImage =
-    new Image();
+  padding:
+    0.5vh
+    0.9vw;
 
+  border-radius: 999px;
 
-  testImage.onload = () => {
-
-    fallbackEl.style.display =
-      "none";
-
-    posterEl.style.display =
-      "block";
-
-
-    posterBackgroundEl.style.backgroundImage =
-      `url("${src}?v=${Date.now()}")`;
-
-    posterBackgroundEl.style.opacity =
-      "0.72";
-
-
-    posterEl.classList.remove(
-      "fade-in"
+  font-size:
+    clamp(
+      11px,
+      0.8vw,
+      16px
     );
 
-    posterEl.classList.add(
-      "fade-out"
-    );
+  background:
+    rgba(47, 58, 70, 0.82);
 
+  color: #ffffff;
 
-    setTimeout(
-      () => {
-
-        posterEl.src =
-          `${src}?v=${Date.now()}`;
-
-        posterEl.classList.remove(
-          "fade-out"
-        );
-
-        posterEl.classList.add(
-          "fade-in"
-        );
-
-      },
-      180
-    );
-
-
-    counterEl.textContent =
-      `${indexToShow + 1} / ${posters.length}`;
-
-    counterEl.style.display =
-      posters.length > 1
-        ? "block"
-        : "none";
-
-
-    currentIndex =
-      (indexToShow + 1)
-      %
-      posters.length;
-
-
-    clearTimeout(timer);
-
-    timer =
-      setTimeout(
-        () =>
-          showNextValidPoster(),
-        POSTER_DURATION
-      );
-  };
-
-
-  testImage.onerror = () => {
-
-    console.warn(
-      `Poster tidak dijumpai. Skip: ${src}`
-    );
-
-    currentIndex =
-      (indexToShow + 1)
-      %
-      posters.length;
-
-    showNextValidPoster(
-      attempts + 1
-    );
-  };
-
-
-  testImage.src =
-    `${src}?v=${Date.now()}`;
+  border:
+    1px solid rgba(255, 255, 255, 0.20);
 }
 
 
 /* =========================================================
-   LOAD TICKER
+   FOOTER
    ========================================================= */
 
-async function loadTicker() {
+.footer {
+  display: flex;
 
-  try {
+  align-items: center;
 
-    const response =
-      await fetch(
-        TICKER_LIST_URL,
-        {
-          cache: "no-store"
-        }
-      );
+  overflow: hidden;
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+  background: #2f3a46;
 
-    const data =
-      await response.json();
-
-    if (!Array.isArray(data)) {
-      throw new Error(
-        "ticker.json mesti dalam bentuk array."
-      );
-    }
-
-
-    const validTickerItems =
-      data.filter(
-        item =>
-          typeof item === "string"
-          &&
-          item.trim() !== ""
-      );
-
-
-    if (validTickerItems.length === 0) {
-
-      tickerEl.textContent =
-        "Tiada maklumat terkini buat masa ini.";
-
-      return;
-    }
-
-
-    tickerEl.textContent =
-      validTickerItems.join(
-        "   •   "
-      )
-      +
-      "   •   ";
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Gagal membaca ticker.json:",
-      error
-    );
-
-    tickerEl.textContent =
-      "Selamat datang ke TVETMARA Petaling Jaya.";
-  }
+  border-top:
+    1px solid rgba(255, 255, 255, 0.08);
 }
 
 
 /* =========================================================
-   START SYSTEM
+   FOOTER LABEL
    ========================================================= */
 
-loadPosterList();
+.footer-label {
+  z-index: 2;
 
-loadTicker();
+  height: 100%;
+
+  min-width: 9vw;
+
+  padding:
+    0 1.3vw;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size:
+    clamp(
+      14px,
+      1vw,
+      22px
+    );
+
+  font-weight: 800;
+
+  color: #ffffff;
+
+  background: #374151;
+
+  border-right:
+    4px solid #c73a3a;
+}
+
+
+/* =========================================================
+   TICKER
+   ========================================================= */
+
+.ticker-wrap {
+  flex: 1;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+}
+
+
+.ticker {
+  display: inline-block;
+
+  padding-left: 100%;
+
+  font-size:
+    clamp(
+      15px,
+      1.1vw,
+      24px
+    );
+
+  color: #ffffff;
+
+  animation:
+    ticker
+    28s
+    linear
+    infinite;
+}
+
+
+@keyframes ticker {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
