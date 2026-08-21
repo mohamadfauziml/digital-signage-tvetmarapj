@@ -117,9 +117,9 @@ body {
    ========================================================= */
 
 .mara-logo {
-  height: 8vh;
+  height: 9vh;
 
-  max-width: 12vw;
+  max-width: 14vw;
 }
 
 
@@ -161,13 +161,17 @@ body {
 
 
 /* =========================================================
-   CLOCK
+   CLOCK + DATE
    ========================================================= */
 
 .clock-box {
   justify-self: end;
 
-  text-align: right;
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 1vw;
 
   white-space: nowrap;
 
@@ -178,9 +182,9 @@ body {
 #clock {
   font-size:
     clamp(
-      27px,
-      2.8vw,
-      54px
+      26px,
+      2.6vw,
+      50px
     );
 
   font-weight: 800;
@@ -192,13 +196,13 @@ body {
 
 
 #date {
-  margin-top: 0.5vh;
+  margin-top: 0;
 
   font-size:
     clamp(
       12px,
-      1vw,
-      21px
+      0.95vw,
+      19px
     );
 
   color: #5f6b76;
@@ -250,8 +254,7 @@ body {
     blur(30px)
     brightness(0.72);
 
-  transform:
-    scale(1.10);
+  transform: scale(1.10);
 
   opacity: 0;
 
@@ -375,39 +378,11 @@ body {
 
 /* =========================================================
    POSTER COUNTER
+   HIDDEN
    ========================================================= */
 
 .poster-counter {
-  position: absolute;
-
-  z-index: 5;
-
-  right: 1.2vw;
-
-  bottom: 1.3vh;
-
-  display: none;
-
-  padding:
-    0.5vh
-    0.9vw;
-
-  border-radius: 999px;
-
-  font-size:
-    clamp(
-      11px,
-      0.8vw,
-      16px
-    );
-
-  background:
-    rgba(47, 58, 70, 0.82);
-
-  color: #ffffff;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.20);
+  display: none !important;
 }
 
 
