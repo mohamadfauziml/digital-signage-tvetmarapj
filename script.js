@@ -1,365 +1,133 @@
 /* =========================================================
-   TVETMARA PETALING JAYA
-   DIGITAL SIGNAGE
+   TVETMARA DIGITAL SIGNAGE V1.5
    ========================================================= */
 
-* {
-  box-sizing: border-box;
-}
+const POSTER_DURATION = 10000;
 
-html,
-body {
-  margin: 0;
-  padding: 0;
+const POSTER_LIST_URL =
+  `posters.json?v=${Date.now()}`;
 
-  width: 100%;
-  height: 100%;
+const TICKER_LIST_URL =
+  `ticker.json?v=${Date.now()}`;
 
-  overflow: hidden;
 
-  font-family: Arial, Helvetica, sans-serif;
-
-  background: #e9edf2;
-
-  color: #1f2933;
-}
+let posters = [];
+let currentIndex = 0;
+let timer = null;
 
 
 /* =========================================================
-   MAIN SCREEN
+   ELEMENTS
    ========================================================= */
 
-.signage {
-  width: 100vw;
-  height: 100vh;
+const posterEl =
+  document.getElementById("poster");
 
-  display: grid;
+const posterBackgroundEl =
+  document.getElementById("posterBackground");
 
-  grid-template-rows:
-    13vh
-    1fr
-    7vh;
+const fallbackEl =
+  document.getElementById("fallback");
 
-  background: #e9edf2;
-}
+const counterEl =
+  document.getElementById("posterCounter");
 
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.header {
-  display: grid;
-
-  grid-template-columns:
-    1fr
-    auto
-    1fr;
-
-  align-items: center;
-
-  gap: 1.5vw;
-
-  padding:
-    0.8vh
-    1.8vw;
-
-  background: #ffffff;
-
-  border-bottom:
-    3px solid #c73a3a;
-
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.08);
-
-  position: relative;
-
-  z-index: 10;
-}
-
-
-/* =========================================================
-   LEFT - BUILDING
-   ========================================================= */
-
-.building-zone {
-  height: 100%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: flex-start;
-
-  overflow: hidden;
-
-  padding:
-    0.4vh
-    0.5vw;
-
-  border-radius: 8px;
-
-  background:
-    #f7f8fa;
-}
-
-
-.building-image {
-  display: block;
-
-  width: auto;
-
-  height: 9vh;
-
-  max-width: 27vw;
-
-  object-fit: contain;
-
-  object-position:
-    left center;
-}
-
-
-/* =========================================================
-   CENTER LOGOS
-   ========================================================= */
-
-.logo-group {
-  height: 100%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 1.4vw;
-
-  padding:
-    0 0.8vw;
-
-  white-space: nowrap;
-}
-
-
-/* =========================================================
-   COMMON LOGO
-   ========================================================= */
-
-.header-logo {
-  display: block;
-
-  width: auto;
-
-  object-fit: contain;
-
-  flex-shrink: 0;
-}
-
-
-/* =========================================================
-   MARA
-   ========================================================= */
-
-.mara-logo {
-  height: 7vh;
-
-  max-width: 12vw;
-}
-
-
-/* =========================================================
-   JATA NEGARA
-   ========================================================= */
-
-.jata-logo {
-  height: 7.4vh;
-
-  max-width: 8vw;
-}
-
-
-/* =========================================================
-   TVETMARA PJ
-   ========================================================= */
-
-.tvet-logo {
-  height: 6.5vh;
-
-  max-width: 16vw;
-}
-
-
-/* =========================================================
-   DIVIDERS
-   ========================================================= */
-
-.logo-divider {
-  width: 1px;
-
-  height: 5vh;
-
-  background: #d7dce2;
-
-  flex-shrink: 0;
-}
+const tickerEl =
+  document.getElementById("ticker");
 
 
 /* =========================================================
    CLOCK
    ========================================================= */
 
-.clock-box {
-  justify-self: end;
+function updateClock() {
 
-  text-align: right;
+  const now = new Date();
 
-  white-space: nowrap;
-
-  color: #1f2933;
-}
-
-
-#clock {
-  font-size:
-    clamp(
-      27px,
-      2.8vw,
-      54px
+  document.getElementById("clock").textContent =
+    now.toLocaleTimeString(
+      "en-MY",
+      {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+      }
     );
 
-  font-weight: 800;
-
-  line-height: 1;
-
-  letter-spacing: 0.02em;
-}
-
-
-#date {
-  margin-top: 0.5vh;
-
-  font-size:
-    clamp(
-      12px,
-      1vw,
-      21px
-    );
-
-  color: #5f6b76;
-
-  font-weight: 500;
-}
-
-
-/* =========================================================
-   POSTER AREA
-   ========================================================= */
-
-.poster-frame {
-  position: relative;
-
-  margin:
-    2vh
-    1.5vw;
-
-  overflow: hidden;
-
-  border-radius: 14px;
-
-  border:
-    1px solid #d7dce2;
-
-  background: #d7dce2;
-
-  box-shadow:
-    0 8px 22px rgba(0, 0, 0, 0.10);
-}
-
-
-/* =========================================================
-   BLURRED BACKGROUND
-   ========================================================= */
-
-.poster-background {
-  position: absolute;
-
-  inset: -35px;
-
-  background-position: center;
-
-  background-repeat: no-repeat;
-
-  background-size: cover;
-
-  filter:
-    blur(30px)
-    brightness(0.72);
-
-  transform: scale(1.10);
-
-  opacity: 0;
-
-  transition:
-    opacity 0.8s ease;
-}
-
-
-/* =========================================================
-   POSTER OVERLAY
-   ========================================================= */
-
-.poster-overlay {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 1;
-
-  background:
-    rgba(55, 65, 81, 0.08);
-}
-
-
-/* =========================================================
-   MAIN POSTER
-   ========================================================= */
-
-.poster {
-  position: relative;
-
-  z-index: 2;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: contain;
-
-  display: none;
-
-  margin: auto;
-
-  opacity: 1;
-
-  background: transparent;
-
-  transition:
-    opacity 0.45s ease;
-
-  filter:
-    drop-shadow(
-      0 6px 16px rgba(0, 0, 0, 0.16)
+  document.getElementById("date").textContent =
+    now.toLocaleDateString(
+      "ms-MY",
+      {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
     );
 }
 
-
-.poster.fade-out {
-  opacity: 0;
-}
+setInterval(updateClock, 1000);
+updateClock();
 
 
-.poster.fade-in {
-  opacity: 1;
+/* =========================================================
+   LOAD POSTER LIST
+   ========================================================= */
+
+async function loadPosterList() {
+
+  try {
+
+    const response =
+      await fetch(
+        POSTER_LIST_URL,
+        {
+          cache: "no-store"
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data =
+      await response.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error(
+        "posters.json mesti dalam bentuk array."
+      );
+    }
+
+    posters =
+      data.filter(
+        item =>
+          typeof item === "string"
+          &&
+          item.trim() !== ""
+      );
+
+    if (posters.length === 0) {
+      showFallback();
+      return;
+    }
+
+    currentIndex = 0;
+
+    showNextValidPoster();
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Gagal membaca posters.json:",
+      error
+    );
+
+    showFallback();
+  }
 }
 
 
@@ -367,194 +135,218 @@ body {
    FALLBACK
    ========================================================= */
 
-.fallback {
-  position: relative;
+function showFallback() {
 
-  z-index: 3;
+  clearTimeout(timer);
 
-  width: 100%;
-  height: 100%;
+  posterEl.style.display =
+    "none";
 
-  display: flex;
+  posterBackgroundEl.style.opacity =
+    "0";
 
-  flex-direction: column;
+  counterEl.style.display =
+    "none";
 
-  justify-content: center;
-
-  align-items: center;
-
-  text-align: center;
-
-  padding: 5vw;
-
-  background: #d7dce2;
-
-  color: #374151;
-}
-
-
-.fallback-title {
-  font-size:
-    clamp(
-      28px,
-      3vw,
-      60px
-    );
-
-  font-weight: 800;
-}
-
-
-.fallback-subtitle {
-  margin-top: 1vh;
-
-  font-size:
-    clamp(
-      16px,
-      1.3vw,
-      28px
-    );
-
-  color: #6b7280;
+  fallbackEl.style.display =
+    "flex";
 }
 
 
 /* =========================================================
-   POSTER COUNTER
+   SHOW NEXT POSTER
    ========================================================= */
 
-.poster-counter {
-  position: absolute;
+function showNextValidPoster(
+  attempts = 0
+) {
 
-  z-index: 5;
+  if (
+    posters.length === 0
+    ||
+    attempts >= posters.length
+  ) {
 
-  right: 1.2vw;
-
-  bottom: 1.3vh;
-
-  display: none;
-
-  padding:
-    0.5vh
-    0.9vw;
-
-  border-radius: 999px;
-
-  font-size:
-    clamp(
-      11px,
-      0.8vw,
-      16px
-    );
-
-  background:
-    rgba(47, 58, 70, 0.82);
-
-  color: #ffffff;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.20);
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer {
-  display: flex;
-
-  align-items: center;
-
-  overflow: hidden;
-
-  background: #2f3a46;
-
-  border-top:
-    1px solid rgba(255, 255, 255, 0.08);
-}
-
-
-/* =========================================================
-   FOOTER LABEL
-   ========================================================= */
-
-.footer-label {
-  z-index: 2;
-
-  height: 100%;
-
-  min-width: 9vw;
-
-  padding:
-    0 1.3vw;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size:
-    clamp(
-      14px,
-      1vw,
-      22px
-    );
-
-  font-weight: 800;
-
-  color: #ffffff;
-
-  background: #374151;
-
-  border-right:
-    4px solid #c73a3a;
-}
-
-
-/* =========================================================
-   TICKER
-   ========================================================= */
-
-.ticker-wrap {
-  flex: 1;
-
-  overflow: hidden;
-
-  white-space: nowrap;
-}
-
-
-.ticker {
-  display: inline-block;
-
-  padding-left: 100%;
-
-  font-size:
-    clamp(
-      15px,
-      1.1vw,
-      24px
-    );
-
-  color: #ffffff;
-
-  animation:
-    ticker
-    28s
-    linear
-    infinite;
-}
-
-
-@keyframes ticker {
-
-  from {
-    transform: translateX(0);
+    showFallback();
+    return;
   }
 
-  to {
-    transform: translateX(-100%);
+  const indexToShow =
+    currentIndex;
+
+  const src =
+    posters[indexToShow];
+
+  const testImage =
+    new Image();
+
+
+  testImage.onload = () => {
+
+    fallbackEl.style.display =
+      "none";
+
+    posterEl.style.display =
+      "block";
+
+
+    posterBackgroundEl.style.backgroundImage =
+      `url("${src}?v=${Date.now()}")`;
+
+    posterBackgroundEl.style.opacity =
+      "0.72";
+
+
+    posterEl.classList.remove(
+      "fade-in"
+    );
+
+    posterEl.classList.add(
+      "fade-out"
+    );
+
+
+    setTimeout(
+      () => {
+
+        posterEl.src =
+          `${src}?v=${Date.now()}`;
+
+        posterEl.classList.remove(
+          "fade-out"
+        );
+
+        posterEl.classList.add(
+          "fade-in"
+        );
+
+      },
+      180
+    );
+
+
+    counterEl.textContent =
+      `${indexToShow + 1} / ${posters.length}`;
+
+    counterEl.style.display =
+      posters.length > 1
+        ? "block"
+        : "none";
+
+
+    currentIndex =
+      (indexToShow + 1)
+      %
+      posters.length;
+
+
+    clearTimeout(timer);
+
+    timer =
+      setTimeout(
+        () =>
+          showNextValidPoster(),
+        POSTER_DURATION
+      );
+  };
+
+
+  testImage.onerror = () => {
+
+    console.warn(
+      `Poster tidak dijumpai. Skip: ${src}`
+    );
+
+    currentIndex =
+      (indexToShow + 1)
+      %
+      posters.length;
+
+    showNextValidPoster(
+      attempts + 1
+    );
+  };
+
+
+  testImage.src =
+    `${src}?v=${Date.now()}`;
+}
+
+
+/* =========================================================
+   LOAD TICKER
+   ========================================================= */
+
+async function loadTicker() {
+
+  try {
+
+    const response =
+      await fetch(
+        TICKER_LIST_URL,
+        {
+          cache: "no-store"
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data =
+      await response.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error(
+        "ticker.json mesti dalam bentuk array."
+      );
+    }
+
+
+    const validTickerItems =
+      data.filter(
+        item =>
+          typeof item === "string"
+          &&
+          item.trim() !== ""
+      );
+
+
+    if (validTickerItems.length === 0) {
+
+      tickerEl.textContent =
+        "Tiada maklumat terkini buat masa ini.";
+
+      return;
+    }
+
+
+    tickerEl.textContent =
+      validTickerItems.join(
+        "   •   "
+      )
+      +
+      "   •   ";
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Gagal membaca ticker.json:",
+      error
+    );
+
+    tickerEl.textContent =
+      "Selamat datang ke TVETMARA Petaling Jaya.";
   }
 }
+
+
+/* =========================================================
+   START SYSTEM
+   ========================================================= */
+
+loadPosterList();
+
+loadTicker();
