@@ -1,5 +1,5 @@
 /* =========================================================
-   TVETMARA DIGITAL SIGNAGE V1.1
+   TVETMARA DIGITAL SIGNAGE V1.2
    ========================================================= */
 
 * {
@@ -10,19 +10,13 @@ html,
 body {
   margin: 0;
   padding: 0;
-
   width: 100%;
   height: 100%;
-
   overflow: hidden;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 
-  background: #070c23;
-
+  background: #101238;
   color: #ffffff;
 }
 
@@ -32,7 +26,6 @@ body {
    ========================================================= */
 
 .signage {
-
   width: 100vw;
   height: 100vh;
 
@@ -44,24 +37,23 @@ body {
     7vh;
 
   background:
-
     radial-gradient(
-      circle at 15% 10%,
-      rgba(35, 95, 180, 0.15),
-      transparent 30%
+      circle at 12% 8%,
+      rgba(29, 89, 177, 0.20),
+      transparent 32%
     ),
 
     radial-gradient(
-      circle at 90% 5%,
-      rgba(235, 35, 50, 0.08),
-      transparent 25%
+      circle at 92% 6%,
+      rgba(228, 31, 46, 0.10),
+      transparent 24%
     ),
 
     linear-gradient(
       135deg,
-      #071020,
-      #0c1835 55%,
-      #171348
+      #080d25 0%,
+      #11163f 55%,
+      #231c63 100%
     );
 }
 
@@ -71,23 +63,25 @@ body {
    ========================================================= */
 
 .header {
-
   display: flex;
 
   align-items: center;
-
   justify-content: space-between;
 
   padding:
-    1vh
+    0.7vh
     2vw;
 
   background:
-    rgba(4, 10, 28, 0.90);
+    linear-gradient(
+      90deg,
+      #090d27,
+      #151743 55%,
+      #211a5d
+    );
 
   border-bottom:
-    2px solid
-    rgba(80, 120, 205, 0.30);
+    3px solid #d7192d;
 }
 
 
@@ -96,31 +90,30 @@ body {
    ========================================================= */
 
 .brand {
-
   height: 100%;
 
   display: flex;
-
   align-items: center;
 }
 
 
 .logo {
-
   width: auto;
 
-  height: 9.5vh;
+  height: 11vh;
 
-  max-width: 38vw;
+  max-width: 46vw;
 
   object-fit: contain;
 
   display: block;
 
   filter:
+    brightness(1.15)
+    contrast(1.08)
     drop-shadow(
-      0 4px 10px
-      rgba(0,0,0,0.35)
+      0 5px 14px
+      rgba(0,0,0,0.45)
     );
 }
 
@@ -130,20 +123,17 @@ body {
    ========================================================= */
 
 .clock-box {
-
   text-align: right;
-
   white-space: nowrap;
 }
 
 
 #clock {
-
   font-size:
     clamp(
       30px,
-      3.5vw,
-      68px
+      3.6vw,
+      70px
     );
 
   font-weight: 800;
@@ -156,9 +146,8 @@ body {
 
 
 #date {
-
   margin-top:
-    0.6vh;
+    0.5vh;
 
   font-size:
     clamp(
@@ -167,7 +156,7 @@ body {
       22px
     );
 
-  opacity: 0.80;
+  opacity: 0.82;
 }
 
 
@@ -176,7 +165,6 @@ body {
    ========================================================= */
 
 .poster-frame {
-
   position: relative;
 
   margin:
@@ -186,24 +174,18 @@ body {
   overflow: hidden;
 
   border-radius:
-    1.4vh;
+    1.2vh;
 
   border:
-    2px solid
-    rgba(255,255,255,0.20);
+    1px solid
+    rgba(100, 120, 210, 0.24);
 
   background:
-    #080e24;
+    #101238;
 
   box-shadow:
-
-    0 1.5vh 4vh
-    rgba(0,0,0,0.45),
-
-    inset
-    0 0 0 1px
-    rgba(255,255,255,0.04);
-
+    0 1vh 3vh
+    rgba(0,0,0,0.32);
 }
 
 
@@ -212,10 +194,9 @@ body {
    ========================================================= */
 
 .poster-background {
-
   position: absolute;
 
-  inset: -30px;
+  inset: -35px;
 
   background-position: center;
 
@@ -224,10 +205,11 @@ body {
   background-size: cover;
 
   filter:
-    blur(28px);
+    blur(30px)
+    brightness(0.52);
 
   transform:
-    scale(1.08);
+    scale(1.1);
 
   opacity: 0;
 
@@ -238,25 +220,23 @@ body {
 
 
 /* =========================================================
-   POSTER DARK OVERLAY
+   POSTER OVERLAY
    ========================================================= */
 
 .poster-overlay {
-
   position: absolute;
 
   inset: 0;
 
-  background:
+  z-index: 1;
 
+  background:
     linear-gradient(
       90deg,
-      rgba(4,10,25,0.50),
-      rgba(4,10,25,0.10),
-      rgba(4,10,25,0.50)
+      rgba(9,13,39,0.45),
+      rgba(9,13,39,0.08),
+      rgba(9,13,39,0.45)
     );
-
-  z-index: 1;
 }
 
 
@@ -265,7 +245,6 @@ body {
    ========================================================= */
 
 .poster {
-
   position: relative;
 
   z-index: 2;
@@ -285,10 +264,13 @@ body {
     opacity
     0.45s ease;
 
+  background:
+    transparent;
+
   filter:
     drop-shadow(
-      0 8px 22px
-      rgba(0,0,0,0.45)
+      0 10px 24px
+      rgba(0,0,0,0.48)
     );
 }
 
@@ -308,7 +290,6 @@ body {
    ========================================================= */
 
 .fallback {
-
   position: relative;
 
   z-index: 3;
@@ -321,7 +302,6 @@ body {
   flex-direction: column;
 
   justify-content: center;
-
   align-items: center;
 
   text-align: center;
@@ -329,18 +309,15 @@ body {
   padding: 5vw;
 
   background:
-
-    radial-gradient(
-      circle at center,
-      rgba(38, 76, 150, 0.22),
-      transparent 50%
+    linear-gradient(
+      135deg,
+      #11163f,
+      #231c63
     );
-
 }
 
 
 .fallback-title {
-
   font-size:
     clamp(
       28px,
@@ -353,7 +330,6 @@ body {
 
 
 .fallback-subtitle {
-
   margin-top:
     1vh;
 
@@ -373,7 +349,6 @@ body {
    ========================================================= */
 
 .poster-counter {
-
   position: absolute;
 
   z-index: 5;
@@ -387,7 +362,6 @@ body {
   display: none;
 
   padding:
-
     0.5vh
     0.9vw;
 
@@ -402,14 +376,11 @@ body {
     );
 
   background:
-    rgba(4, 10, 28, 0.72);
+    rgba(10, 12, 39, 0.80);
 
   border:
     1px solid
-    rgba(255,255,255,0.18);
-
-  backdrop-filter:
-    blur(8px);
+    rgba(255,255,255,0.14);
 }
 
 
@@ -418,7 +389,6 @@ body {
    ========================================================= */
 
 .footer {
-
   display: flex;
 
   align-items: center;
@@ -426,11 +396,15 @@ body {
   overflow: hidden;
 
   background:
-    #050a18;
+    linear-gradient(
+      90deg,
+      #090d27,
+      #11163f
+    );
 
   border-top:
     2px solid
-    rgba(45, 87, 175, 0.25);
+    rgba(215, 25, 45, 0.60);
 }
 
 
@@ -439,7 +413,6 @@ body {
    ========================================================= */
 
 .footer-label {
-
   z-index: 2;
 
   height: 100%;
@@ -454,7 +427,6 @@ body {
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   font-size:
@@ -470,16 +442,15 @@ body {
     #ffffff;
 
   background:
-
     linear-gradient(
       135deg,
-      #172c72,
-      #243f94
+      #1c4fa3,
+      #332a7a
     );
 
   border-right:
-    4px solid
-    #e2222f;
+    5px solid
+    #e21d2d;
 }
 
 
@@ -488,7 +459,6 @@ body {
    ========================================================= */
 
 .ticker-wrap {
-
   flex: 1;
 
   overflow: hidden;
@@ -498,7 +468,6 @@ body {
 
 
 .ticker {
-
   display: inline-block;
 
   padding-left:
@@ -520,7 +489,6 @@ body {
 
 
 @keyframes ticker {
-
   from {
     transform:
       translateX(0);
@@ -530,5 +498,4 @@ body {
     transform:
       translateX(-100%);
   }
-
 }
